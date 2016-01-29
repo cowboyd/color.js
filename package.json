@@ -1,0 +1,35 @@
+{
+  "name": "color",
+  "version": "0.0.1",
+  "description": "Immutable Colors",
+  "main": "./lib/color.js",
+  "files": ["lib", "src"],
+  "jsnext:main": "./src/color.js",
+  "scripts": {
+    "prepublish": "babel --optional runtime src/ --out-dir lib/",
+    "test": "mocha --reporter min --full-trace test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cowboyd/color.js.git"
+  },
+  "keywords": [
+    "ui",
+    "immutable"
+  ],
+  "author": "Charles Lowell <cowboyd@frontside.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cowboyd/color.js/issues"
+  },
+  "homepage": "https://github.com/cowboyd/color.js#readme",
+  "dependencies": {
+    "babel-runtime": "^5.8.25"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.3",
+    "require-all": "^2.0.0"
+  }
+}
