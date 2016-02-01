@@ -71,6 +71,6 @@ class HSLColor {
   }
 
   lighten(ratio) {
-    return this.setHSL({l: this.l + this.l * ratio});
+    return this.darken(-ratio);
   }
 }
