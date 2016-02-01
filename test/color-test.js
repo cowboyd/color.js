@@ -63,6 +63,14 @@ describe("Color", function() {
         expect(this.darkened.l).to.equal(0.45);
       })
     })
+    describe("darkening rgb value by ten percent", function() {
+      beforeEach(function() {
+        this.darkened = this.hsl.rgb.darken(0.1);
+      })
+      it("lower lightness by ratio", function() {
+        expect(this.darkened.l).to.equal(0.45);
+      })
+    })
   });
 
 });

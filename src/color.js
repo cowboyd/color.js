@@ -32,6 +32,11 @@ class RGBColor {
   setHSL(hsl = {}) {
     return this.hsl.setHSL(hsl);
   }
+
+  darken(ratio) {
+    let hsl = this.hsl;
+    return this.setHSL({l: this.hsl.l - this.hsl.l * ratio});
+  }
 }
 
 class HSLColor {
