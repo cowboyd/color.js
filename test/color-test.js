@@ -71,6 +71,22 @@ describe("Color", function() {
         expect(this.darkened.l).to.equal(0.45);
       })
     })
+    describe("lightening by ten percent", function() {
+      beforeEach(function() {
+        this.lightened = this.hsl.lighten(0.1);
+      })
+      it("raises lightness by ratio", function() {
+        expect(this.lightened.l).to.equal(0.55);
+      })
+    })
+    describe("lightening rgb value by ten percent", function() {
+      beforeEach(function() {
+        this.lightened = this.hsl.rgb.lighten(0.1);
+      })
+      it("raises lightness by ratio", function() {
+        expect(this.lightened.l).to.equal(0.55);
+      })
+    })
   });
 
 });
