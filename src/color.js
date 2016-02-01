@@ -57,4 +57,8 @@ class HSLColor {
   setHSL(hsl = {}) {
     return Color.hsl(hsl.h || this.h, hsl.s || this.s, hsl.l || this.l);
   }
+
+  darken(ratio) {
+    return this.setHSL({l: this.l - this.l * ratio});
+  }
 }

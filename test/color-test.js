@@ -55,7 +55,14 @@ describe("Color", function() {
       expect(g).to.equal(170);
       expect(b).to.equal(255);
     });
-
+    describe("darkening by ten percent", function() {
+      beforeEach(function() {
+        this.darkened = this.hsl.darken(0.1);
+      })
+      it("lower lightness by ratio", function() {
+        expect(this.darkened.l).to.equal(0.45);
+      })
+    })
   });
 
 });
