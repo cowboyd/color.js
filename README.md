@@ -1,4 +1,4 @@
-# Color.js
+# Color.js [![Build Status](https://img.shields.io/travis/ssriera/color.js.svg)](https://travis-ci.org/ssriera/color.js)
 
 ``` js
 let red = Color.rgb(255,0,0) //=> RGBColor { r: 255, g: 0, b: 0 }
