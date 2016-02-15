@@ -9,6 +9,14 @@ export default class Color {
     return new HSLColor(h, s, l);
   }
 
+  setRGB(rgb = {}) {
+    return this.rgb.setRGB(rgb);
+  }
+
+  setHSL(hsl = {}) {
+    return this.hsl.setHSL(hsl);
+  }
+  
   darken(ratio) {
     return this.hsl.darken(ratio);
   }
@@ -18,7 +26,7 @@ export default class Color {
   }
 }
 
-class RGBColor extends Color { 
+class RGBColor extends Color {
   constructor(r = 0, g = 0, b = 0) {
     super();
     this.r = r;
@@ -38,10 +46,6 @@ class RGBColor extends Color {
     return Color.rgb(rgb.r || this.r, rgb.g || this.g, rgb.b || this.b);
   }
 
-  setHSL(hsl = {}) {
-    return this.hsl.setHSL(hsl);
-  }
-  
 }
 
 class HSLColor extends Color {
@@ -61,10 +65,6 @@ class HSLColor extends Color {
     return Color.rgb(...rgb);
   }
 
-  setRGB(rgb = {}) {
-    return this.rgb.setRGB(rgb);
-  }
-
   setHSL(hsl = {}) {
     return Color.hsl(hsl.h || this.h, hsl.s || this.s, hsl.l || this.l);
   }
@@ -72,5 +72,5 @@ class HSLColor extends Color {
   darken(ratio) {
     return this.setHSL({l: this.l - this.l * ratio});
   }
-  
+
 }
