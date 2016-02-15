@@ -1,4 +1,4 @@
-import { rgbToHsl, hslToRgb, hsvToRgb } from './conversions';
+import { rgbToHsl, hslToRgb, hsvToRgb, rgbToHsv } from './conversions';
 
 export default class Color {
   static rgb(r, g, b) {
@@ -19,6 +19,10 @@ export default class Color {
 
   setHSL(hsl = {}) {
     return this.hsl.setHSL(hsl);
+  }
+
+  setHSB(hsb = {}) {
+    return this.hsb.setHSB(hsb);
   }
 
   darken(ratio) {
@@ -47,8 +51,18 @@ class RGBColor extends Color {
     return Color.hsl(h* 360, s, l);
   }
 
+  get hsb() {
+    let [h, s, b] = rgbToHsv(this.r, this.g, this.b);
+    return Color.hsb(h * 360, s, b);
+  }
+
   setRGB(rgb = {}) {
-    return Color.rgb(rgb.r || this.r, rgb.g || this.g, rgb.b || this.b);
+    rgb = Object.assign({
+      r: this.r,
+      g: this.g,
+      b: this.b
+    }, rgb);
+    return Color.rgb(rgb.r, rgb.g, rgb.b);
   }
 
 }
@@ -70,8 +84,17 @@ class HSLColor extends Color {
     return Color.rgb(...rgb);
   }
 
+  get hsb() {
+    return this.rgb.hsb;
+  }
+
   setHSL(hsl = {}) {
-    return Color.hsl(hsl.h || this.h, hsl.s || this.s, hsl.l || this.l);
+    hsl = Object.assign({
+      h: this.h,
+      s: this.s,
+      l: this.l
+    }, hsl);
+    return Color.hsl(hsl.h, hsl.s, hsl.l);
   }
 
   darken(ratio) {

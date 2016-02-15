@@ -42,6 +42,12 @@ describe('HSB Color', function() {
       expect(s).to.equal(1);
       expect(l).to.equal(0.5);
     });
+    it('can be converted to HSL and back', function() {
+      let {h, s, b} = this.skyBlue.hsl.hsb;
+      expect(h).to.equal(200);
+      expect(s).to.equal(1);
+      expect(b).to.equal(1);
+    });
     describe('when changed to red', function() {
       beforeEach(function() {
           this.red = this.skyBlue.setHSB({h:0});
@@ -54,5 +60,13 @@ describe('HSB Color', function() {
         expect(this.red.b).to.equal(1);
       });
     });
+    describe('when changed to red via RGB', function() {
+      beforeEach(function() {
+        this.red = this.skyBlue.rgb.setHSB({h:0});
+      });
+      it('takes on red hue', function() {
+        expect(this.red.h).to.equal(0);
+      });
+    })
   });
 });
