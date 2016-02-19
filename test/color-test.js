@@ -1,6 +1,6 @@
-import Color from '../src/color';
-import { describe, before, beforeEach, it } from 'mocha';
-import { expect } from 'chai';
+  import Color from '../src/color';
+  import { describe, before, beforeEach, it } from 'mocha';
+  import { expect } from 'chai';
 
 describe("Color", function() {
   describe("from default rgb values", function() {
@@ -54,6 +54,26 @@ describe("Color", function() {
       expect(r).to.equal(0);
       expect(g).to.equal(170);
       expect(b).to.equal(255);
+    });
+    describe('setting to red', function() {
+      beforeEach(function() {
+        this.red = this.hsl.setHSL({h:0});
+      });
+      it('takes a red hue', function() {
+        expect(this.red.h).to.equal(0);
+        expect(this.red.s).to.equal(1);
+        expect(this.red.l).to.equal(0.5);
+      });
+    });
+    describe('setting rgb to black', function() {
+      beforeEach(function() {
+        this.black = this.hsl.rgb.setRGB({r:0, g:0, b:0});
+      });
+      it('it becomes black', function() {
+        expect(this.black.r).to.equal(0);
+        expect(this.black.g).to.equal(0);
+        expect(this.black.b).to.equal(0);
+      });
     });
     describe("darkening by ten percent", function() {
       beforeEach(function() {

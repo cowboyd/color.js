@@ -1,4 +1,4 @@
-import { rgbToHsl, hslToRgb } from './conversions';
+import { rgbToHsl, hslToRgb, hsvToRgb, rgbToHsv } from './conversions';
 
 export default class Color {
   static rgb(r, g, b) {
@@ -7,6 +7,22 @@ export default class Color {
 
   static hsl(h, s, l) {
     return new HSLColor(h, s, l);
+  }
+
+  static hsb(h, s, b) {
+    return new HSBColor(h, s, b);
+  }
+
+  setRGB(rgb = {}) {
+    return this.rgb.setRGB(rgb);
+  }
+
+  setHSL(hsl = {}) {
+    return this.hsl.setHSL(hsl);
+  }
+
+  setHSB(hsb = {}) {
+    return this.hsb.setHSB(hsb);
   }
 
   darken(ratio) {
@@ -18,7 +34,7 @@ export default class Color {
   }
 }
 
-class RGBColor extends Color { 
+class RGBColor extends Color {
   constructor(r = 0, g = 0, b = 0) {
     super();
     this.r = r;
@@ -31,17 +47,24 @@ class RGBColor extends Color {
   }
 
   get hsl() {
-    return Color.hsl(...rgbToHsl(this.r, this.g, this.b));
+    let [h, s, l] = rgbToHsl(this.r, this.g, this.b);
+    return Color.hsl(h* 360, s, l);
+  }
+
+  get hsb() {
+    let [h, s, b] = rgbToHsv(this.r, this.g, this.b);
+    return Color.hsb(h * 360, s, b);
   }
 
   setRGB(rgb = {}) {
-    return Color.rgb(rgb.r || this.r, rgb.g || this.g, rgb.b || this.b);
+    rgb = Object.assign({
+      r: this.r,
+      g: this.g,
+      b: this.b
+    }, rgb);
+    return Color.rgb(rgb.r, rgb.g, rgb.b);
   }
 
-  setHSL(hsl = {}) {
-    return this.hsl.setHSL(hsl);
-  }
-  
 }
 
 class HSLColor extends Color {
@@ -61,16 +84,53 @@ class HSLColor extends Color {
     return Color.rgb(...rgb);
   }
 
-  setRGB(rgb = {}) {
-    return this.rgb.setRGB(rgb);
+  get hsb() {
+    return this.rgb.hsb;
   }
 
   setHSL(hsl = {}) {
-    return Color.hsl(hsl.h || this.h, hsl.s || this.s, hsl.l || this.l);
+    hsl = Object.assign({
+      h: this.h,
+      s: this.s,
+      l: this.l
+    }, hsl);
+    return Color.hsl(hsl.h, hsl.s, hsl.l);
   }
 
   darken(ratio) {
     return this.setHSL({l: this.l - this.l * ratio});
   }
-  
+
+}
+
+class HSBColor extends Color {
+  constructor(h = 0, s = 0, b = 0) {
+    super();
+    this.h = h;
+    this.s = s;
+    this.b = b;
+  }
+
+  get hsb() {
+    return this;
+  }
+
+  get hsl() {
+    return this.rgb.hsl;
+  }
+
+  get rgb() {
+    let rgb = hsvToRgb(this.h / 360, this.s, this.b).map(i => Math.round(i));
+    return Color.rgb(...rgb);
+  }
+
+  setHSB(hsb = {}) {
+    hsb = Object.assign({
+      h: this.h,
+      s: this.s,
+      b: this.b
+    }, hsb);
+    return Color.hsb(hsb.h, hsb.s, hsb.b);
+  }
+
 }
