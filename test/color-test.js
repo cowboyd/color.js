@@ -13,6 +13,10 @@ describe("Color", function() {
       expect(this.color.b).to.equal(0);
     });
 
+    it("has a hex value of #000000", function() {
+      expect(this.color.hexstring).to.equal('#000000');
+    });
+
     it("is its own rgb value", function() {
       expect(this.color.rgb).to.equal(this.color);
     });
@@ -48,6 +52,9 @@ describe("Color", function() {
   describe("a nice sky-blue from HSL Values", function() {
     beforeEach(function() {
       this.hsl = Color.hsl(200, 1, 0.5);
+    });
+    it("has a hex value of #00AAFF", function() {
+      expect(this.hsl.hexstring).to.equal('#00AAFF');
     });
     it("converts to rgb and back", function() {
       let { r, g, b } = this.hsl.rgb;

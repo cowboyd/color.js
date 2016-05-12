@@ -13,6 +13,10 @@ export default class Color {
     return new HSBColor(h, s, b);
   }
 
+  get hexstring() {
+    return this.rgb.hexstring;
+  }
+
   setRGB(rgb = {}) {
     return this.rgb.setRGB(rgb);
   }
@@ -54,6 +58,12 @@ class RGBColor extends Color {
   get hsb() {
     let [h, s, b] = rgbToHsv(this.r, this.g, this.b);
     return Color.hsb(h * 360, s, b);
+  }
+
+  get hexstring() {
+    return "#" + [this.r,this.g,this.b].map(v => v.toString(16).toUpperCase()).map(s=> {
+      return s.length < 2 ? `0${s}` : s;
+    }).join('');
   }
 
   setRGB(rgb = {}) {
